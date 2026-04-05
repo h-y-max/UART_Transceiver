@@ -30,4 +30,4 @@
 - `uart_top.v`：顶层模块
 - `uart_top_tb.v`：仿真testbench
 ## 仿真波形
-![波形图](image.png)
+![波形图](waveform.png)
