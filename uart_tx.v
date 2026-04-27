@@ -25,7 +25,7 @@ module uart_tx(
        parameter CLOCK=50_000_000;
        parameter MCNT1=50_000_000-1;
        parameter MCNT0=CLOCK/Baud-1;
-//²¨ÌØÂÊ¼ÆÊıÆ÷
+//æ³¢ç‰¹ç‡è®¡æ•°å™¨
        always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                counter0<=0;
@@ -37,7 +37,7 @@ module uart_tx(
             end
             else
                 counter0<=0;
-//Î»¼ÆÊıÆ÷
+//ä½è®¡æ•°å™¨
       always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                counter1<=0;
@@ -49,7 +49,7 @@ module uart_tx(
             end
             else
                  counter1<=counter1;
-//ÑÓÊ±¼ÆÊıÆ÷
+//å»¶æ—¶è®¡æ•°å™¨
        always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                 counter2<=0;
@@ -61,7 +61,7 @@ module uart_tx(
             end
             else
                 counter2<=0;
-//ÓÃ»§×Ô¶¯¿ØÖÆ×°ÖÃ
+//ç”¨æˆ·è‡ªåŠ¨æ§åˆ¶è£…ç½®
        always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                r_send_go<=0;
@@ -75,22 +75,22 @@ module uart_tx(
                 send_go_pluse<=1;
             else 
                 send_go_pluse<=0;
-//²¨ÌØÂÊÊ¹ÄÜ×°ÖÃ
+//æ³¢ç‰¹ç‡ä½¿èƒ½è£…ç½®
       assign over=((counter1==9) && (counter0==MCNT0));
       always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                en_counter0<=0;
-            else if(counter2==MCNT1|send_go_pluse==1)
                en_counter0<=1'd1;
+       else if(counter2==MCNT1||send_go_pluse==1)
             else if(over)
                en_counter0<=0;
- //´æ´¢Æ÷
+ //å­˜å‚¨å™¨
        always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                 r_data_tx<=0;
             else 
                 r_data_tx<=tx_data;
-//Î»½ÓÊÕÂß¼­
+//ä½æ¥æ”¶é€»è¾‘
       always@(posedge CLK or negedge reset_n)
             if(!reset_n)
                 uart_tx<=1;
@@ -111,7 +111,7 @@ module uart_tx(
                  default:uart_tx<=uart_tx;
                  endcase
              end
-//LED·­×ªÂß¼­
+//LEDç¿»è½¬é€»è¾‘
        always@(posedge CLK or negedge reset_n)
               if(!reset_n) 
                  LED_tx<=0;
